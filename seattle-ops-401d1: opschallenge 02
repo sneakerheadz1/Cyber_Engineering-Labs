@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+
+
+# Script Name               ops challange 01- 401
+# Author                    Dom Moore
+# Date                      10/6/20
+# Description of purpose    IP Uptime sensor tool
+
+
+# Import Libraries
+import os, datetime, time, subprocess
+
+# Declaration of variables
+test_ip = "8.8.8.8"
+sys_stat = datetime.datetime.now()
+
+# Declaration of for loop
+
+#for ip in test_ip:
+#    success = os.popen(f"ping {ip}").read()
+#    if "Received = 4" in success:
+#        print(f"UP {ip} System Up")
+#    else:
+#        print(f"DOWN {ip} System Down")
+
+def ip_status():
+    for ip in test_ip:
+        success = os.system('ping -n 2 {ip}'.read())
+        if "Recevied = 4" in success:
+            print(ip, "system up ", sys_stat)
+        else:
+            print("system dowm", sys_stat)
+return
+
+    
+    
+
+
+# Main
+ip_status()
+
+
+# End
