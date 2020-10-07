@@ -25,7 +25,7 @@ sys_stat = datetime.datetime.now()
 
 def ip_status():
     for ip in test_ip:
-        success = os.system('ping -n 2 {ip}'.read())
+        success = os.popopen(f'ping -c 2 {ip}'.read())
         if "Recevied = 4" in success:
             print(ip, "system up ", sys_stat)
         else:
