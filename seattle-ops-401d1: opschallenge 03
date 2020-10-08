@@ -3,5 +3,40 @@
 
 # Script Name               ops challange 03- 401
 # Author                    Dom Moore
-# Date                      10/8/20
-# Description of purpose    Uptime sensor p2
+# Date                      10/7/20
+# Description of purpose    IP Uptime P2
+
+
+# Import Libraries
+import os
+import datetime
+import time
+import subprocess 
+import smtplib
+from email.message import EmailMessage
+from getpass import getpass
+
+
+# Declaration of variables
+usremail = input("Enter your Email: ")
+password = getpass()
+rplyemail = (" Enter Destination Email: ")
+ip = input(" Enter your IP address: ")
+msg = "There has been a change to the system.....!"
+
+# Function
+def MessageSent():
+    try:
+        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+        server.ehlo()
+        server.login(usremail, password)
+        server.sendmail(usremail, rplyemail, msg)
+        server.quit()
+
+        print('Email Sent')
+    except:
+        print('System is currently down')
+
+
+# main calling function
+MessageSent()
