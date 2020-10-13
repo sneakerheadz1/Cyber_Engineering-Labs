@@ -1,18 +1,23 @@
 #!/usr/bin/env python3
 
-
 # Script Name               ops challange 06- 401
 # Author                    Dom Moore
-# Date                      10/12/20
-# Description of purpose    Python Encryption
-
-
-
+# Date                      10/7/20
+# Description of purpose    Encryption & Decryption python
 
 
 # Import Libraries
 
 from cryptography.fernet import Fernet
+
+
+
+# Declaration of variables
+usr_enc = input('Enter file path for encryption: ')
+usr_dec = input('Enter file path for decryption: ')
+usr_msg = input('message for encryption: ')
+message = usr_msg.encore()
+
 
 # Declare Functions
 
@@ -30,21 +35,33 @@ def load_key():
     """
     return open("key.key", "rb").read()
 
+# encrypt file from user input
+def encrypt(usr_enc, key):
+    """
+    Given a filename (str) and key (bytes), it encrypts the file and write it
+    """
+    f = Fernet(key)
+
+# decrypy file from user input
+
+def decrypt(usr_dec, key):
+    """
+    Given a filename (str) and key (bytes), it decrypts the file and write it
+    """
+    f = Fernet(key)
+    with open(usr_dec, "rb") as file:
+        # read the encrypted data
+        encrypted_data = file.read()
+    # decrypt data
+    decrypted_data = f.decrypt(encrypted_data)
+    # write the original file
+    with open(usr_dec, "wb") as file:
+        file.write(decrypted_data)
+
 # Main
+encrypt()
+decrypt()
+
 
 # generate and write a new key
 write_key()
-
-# load the previously generated key
-key = load_key()
-
-message = "hello friend".encode()
-
-# initialize the Fernet class
-f = Fernet(key)
-
-# encrypt the message
-encrypted = f.encrypt(message)
-
-# print how it looks
-print(encrypted)
