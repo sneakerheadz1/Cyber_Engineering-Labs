@@ -16,7 +16,7 @@ from cryptography.fernet import Fernet
 usr_enc = input('Enter file path for encryption: ')
 usr_dec = input('Enter file path for decryption: ')
 usr_msg = input('message for encryption: ')
-message = usr_msg.encore()
+message = usr_msg.encode()
 
 
 # Declare Functions
