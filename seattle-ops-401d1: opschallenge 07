@@ -5,3 +5,47 @@
 # Date                      10/7/20
 # Description of purpose    Encryption & Decryption Directory python
 
+import pyAesCrypt
+import glob
+import os
+
+# Encrypt buffer 
+buffersz = 64 *1024
+
+# Get Directory
+curDir = os.getcwd()
+
+# User Password to encrypt file
+passwd = input('\n Enter file Encryption password: ')
+
+print('\n Starting recursive encryption. ')
+
+# For loop to encrypt all files
+
+for file in glob.glob('test1\\**\*', recursive=True):
+    fullpath = os.path.join(curDir, file)
+    fullnewf = os.path.join(curDir, + file + '.aes')
+    #Encrypt
+    if os.path.isfile(fullpath):
+        print('>>> Orginal: \t' + fullpath + '')
+        print('>>> Encrypted: \t' + fullnewf + '\n')
+        pyAesCrypt.encryptFile(fullpath,fullnewf, passwd, buffersz)
+        # Remove file after Encrypted
+        os.remove(fullpath)
+        
+# For loop to Decrypt all files
+
+for file in glob.glob('testops\\**\*', recursive=True):
+    fullpath = os.path.join(filDir, file)
+    fullnewf = os.path.join(filDir,os.path.splitext(x)[0])
+    #Dncrypt
+    if os.path.isfile(fullpath):
+        print('>>> Encrypted: \t' + fullpath + '')
+        try:
+            pyAesCrypt.decryptFile(fullpath, fullnewf, passwd, buffersz)
+            print('>>> Decrypted: \t' + fullpath + '\n')
+            os.remove(fullpath)
+        except ValueError:
+            print('>>>> Error ---Wrong password!\n')
+   
+  # resource: https://codeonby.com/2020/01/04/recursive-encryption-script-pyaescrypt-for-python-3/
