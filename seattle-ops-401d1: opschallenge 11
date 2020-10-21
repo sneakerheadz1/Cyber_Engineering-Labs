@@ -4,30 +4,53 @@
 # Script Name               ops challange 11 p1- 401
 # Author                    Dom Moore
 # Date                      10/20/20
-# Description of purpose    scapy tool
+# Description of purpose    scapy tool p1 & p2
 
 
 # Import Libraries
 from scapy.all import ICMP, IP, sr1, TCP, sr
 import random
 
-# Delcare variable and port scal
-
+# Delcare host and variable
 host = "scanme.nmap.org"
-port_range = [22:26]
-#src_port = 22
-#dst_port = 22
+port_range = [21, 22, 23, 80, 443, 3389]
+Sel_ip = input("Enter name of usl or ip address. ")
 
-
-# loop
-for dsp_port in port_range:
-    scr_port = random.randint(1025,65534)
-    port_fil =str(dsp_port)
+# Send packet to random port source and destination
+for dst_port in port_range:
+    scr_port = random.randint(1025,65653)
+    responce = sr1(IP(dst=host)/TCP(sport=src_port,dport=dst_port,flags="S"),timeout=1,verbose=0,)
     
-    response = sr1(IP(dst=host)/TCP(sport=src_port,dport=dst_port,flags="S"),timeout=1,verbose=0)
+    if re is None:
+        print(f" {host}:{dst_port} is filtered. ")
 
-        if responce is None:
-            print("filtered packets")
-        elif(responce.haslayer(TCP):
-            if(response.getlayer(TCP).flags ==0x14):
-                print("Not Found")
+    elif (responce.haslayer(TCP)):
+        if(responce.getlayer(TCP).flags == 0x12):
+            # send RST to close
+            send_rst = sr(IP(dst=host)/TCP(sport=scr_port,dport=dst_port,flads='R'),timeout=1, verbose=0,)
+
+            print(f"{host}:{dst_port} is open. ")
+
+        elif(responce.getlayer(TCP).flags == 0x14):
+            print(f"{host}:{dst_port} is closed. ")
+
+    elif(responce.haslayer(ICMP)):
+        if( int(responce.getlayer(ICMP).type) == 3 and int(responce.getlayer(ICMP).code) in [1,2,3,9,7,10,13]):
+            print(f"{host}: {dst_port} is filtred and has been dropped.")
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        
+        
+   Source:https://thepacketgeek.com/scapy/building-network-tools/part-10/
