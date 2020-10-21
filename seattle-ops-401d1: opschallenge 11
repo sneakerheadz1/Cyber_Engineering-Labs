@@ -8,8 +8,10 @@
 
 
 # Import Libraries
-from scapy.all import ICMP, IP, sr1, TCP, sr
+from scapy import all
+from scapy import ICMP, IP, sr1, TCP, sr
 import random
+from ipaddress import IPv4Network
 
 # Delcare host and variable
 host = "scanme.nmap.org"
@@ -19,9 +21,9 @@ Sel_ip = input("Enter name of usl or ip address. ")
 # Send packet to random port source and destination
 for dst_port in port_range:
     scr_port = random.randint(1025,65653)
-    responce = sr1(IP(dst=host)/TCP(sport=src_port,dport=dst_port,flags="S"),timeout=1,verbose=0,)
+    responce = sr1(IP(dst=host)/TCP(sport=scr_port,dport=dst_port,flags="S"),timeout=1,verbose=0,)
     
-    if re is None:
+    if responce is None:
         print(f" {host}:{dst_port} is filtered. ")
 
     elif (responce.haslayer(TCP)):
@@ -37,6 +39,7 @@ for dst_port in port_range:
     elif(responce.haslayer(ICMP)):
         if( int(responce.getlayer(ICMP).type) == 3 and int(responce.getlayer(ICMP).code) in [1,2,3,9,7,10,13]):
             print(f"{host}: {dst_port} is filtred and has been dropped.")
+
             
             
             
