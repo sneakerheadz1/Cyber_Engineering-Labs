@@ -4,7 +4,7 @@
 # Script Name               ops challange 11 p1- 401
 # Author                    Dom Moore
 # Date                      10/20/20
-# Description of purpose    scapy tool p1 & p2
+# Description of purpose    scapy tool p1 & p2 &3
 
 
 # Import Libraries
@@ -16,29 +16,83 @@ from ipaddress import IPv4Network
 # Delcare host and variable
 host = "scanme.nmap.org"
 port_range = [21, 22, 23, 80, 443, 3389]
-Sel_ip = input("Enter name of usl or ip address. ")
+network = input(" Enter IP Address: ")
+#Sel_ip = input("Enter name of usl or ip address. ")
 
 # Send packet to random port source and destination
-for dst_port in port_range:
-    scr_port = random.randint(1025,65653)
-    responce = sr1(IP(dst=host)/TCP(sport=scr_port,dport=dst_port,flags="S"),timeout=1,verbose=0,)
-    
-    if responce is None:
-        print(f" {host}:{dst_port} is filtered. ")
+#for dst_port in port_range:
+#    scr_port = random.randint(1025,65653)
+#    responce = sr1(IP(dst=host)/TCP(sport=scr_port,dport=dst_port,flags="S"),timeout=1,verbose=0,)
+#    
+#    if responce is None:
+#        print(f" {host}:{dst_port} is filtered. ")
+#
+#    elif (responce.haslayer(TCP)):
+#        if(responce.getlayer(TCP).flags == 0x12):
+#            # send RST to close
+#            send_rst = sr(IP(dst=host)/TCP(sport=scr_port,dport=dst_port,flads='R'),timeout=1, verbose=0,)
+#
+#            print(f"{host}:{dst_port} is open. ")
+#
+#        elif(responce.getlayer(TCP).flags == 0x14):
+#            print(f"{host}:{dst_port} is closed. ")
+#
+#    elif(responce.haslayer(ICMP)):
+#        if( int(responce.getlayer(ICMP).type) == 3 and int(responce.getlayer(ICMP).code) in [1,2,3,9,7,10,13]):
+#            print(f"{host}: {dst_port} is filtred and has been dropped.")
 
-    elif (responce.haslayer(TCP)):
-        if(responce.getlayer(TCP).flags == 0x12):
-            # send RST to close
-            send_rst = sr(IP(dst=host)/TCP(sport=scr_port,dport=dst_port,flads='R'),timeout=1, verbose=0,)
 
-            print(f"{host}:{dst_port} is open. ")
+def port_scan():
+    for dst_port in port_range:
+        scr_port = random.randint(1025,65653)
+        response = sr1(IP(dst=host)/TCP(sport=scr_port,dport=dst_port,flags="S"),timeout=1,verbose=0,)
+        
+        if response is None:
+            print(f" {host}:{dst_port} is filtered. ")
 
-        elif(responce.getlayer(TCP).flags == 0x14):
-            print(f"{host}:{dst_port} is closed. ")
+        elif (response.haslayer(TCP)):
+            if(response.getlayer(TCP).flags == 0x12):
+                # send RST to close
+                send_rst = sr(IP(dst=host)/TCP(sport=scr_port,dport=dst_port,flads='R'),timeout=1, verbose=0,)
 
-    elif(responce.haslayer(ICMP)):
-        if( int(responce.getlayer(ICMP).type) == 3 and int(responce.getlayer(ICMP).code) in [1,2,3,9,7,10,13]):
-            print(f"{host}: {dst_port} is filtred and has been dropped.")
+                print(f"{host}:{dst_port} is open. ")
+
+            elif(response.getlayer(TCP).flags == 0x14):
+                print(f"{host}:{dst_port} is closed. ")
+
+        elif(response.haslayer(ICMP)):
+            if( int(response.getlayer(ICMP).type) == 3 and int(response.getlayer(ICMP).code) in [1,2,3,9,7,10,13]):
+                print(f"{host}: {dst_port} is filtred and has been dropped.")
+
+
+       """
+               Work in progress
+       
+                
+        def ip_scan():
+            for ip in network:
+                ip_list = ipaddress.ip_network(network)
+                hosts_count = 0
+
+            for host in ip_list:
+            print("Pinging ",host,", please wait...")
+            response = sr1(IP(dst=str(host))/ICMP(),timeout=2,verbose=0)
+
+            print(response)
+                
+                
+       """             
+                
+if __name__ == "__main__":
+    print(" What would you like to scan? enter 1 for port. 2 for IP ")
+    response = int(input('Enter 1 or 2 to begin scan:'))
+
+    if response == 1:
+        port_scan()
+        print("checking for open ports")
+
+        #else response == 2:
+        #    ip_scan()
 
             
             
