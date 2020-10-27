@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+
+
+# Script Name               ops challange 11 p1- 401
+# Author                    Dom Moore
+# Date                      10/20/20
+# Description of purpose    Brute Force tool p1
+
+
+# Import Libraries
+import time
+import getpass
+
+# Declare Variable
+#password = getpass.getpass("Enter your Password: \n")
+pass_wd = input('Enter your Password: \n')
+file_path = "/home/ubuntu/Desktop/passwd.txt"
+# print(file_path)
+
+
+# Define Function
+
+def usr_wrd(): # validate password is correct
+        print('Enter password')
+        ps_wrd = input()
+        try:
+            ps_wrd = str(ps_wrd)
+        except:
+            print('Enter correct password ')
+
+        if ps_wrd == pass_wd:
+            print("Password valid")
+        else:
+            print("Password incorrect, Enter correct password! ")
+
+
+
+def main_pw():# Validate password is in file
+    passFile = open('passwd.txt', 'r+')
+    for line in passFile.readlines():
+        if "i" in line:
+            print(line)
+
+
+
+
+
+
+# Declare functions
+
+if __name__ == "__main__":
+    print("Choose you mode Enter 1 or 2 ")
+    response = int(input('Enter 1 or 2 to begin:'))
+
+    if response == 1:
+        usr_wrd()
+        time.sleep(2)
+        print("checking password ")
+    else response == 2:
+        main_pw()
+        print("checking password")
+        time.sleep(5)
+        print("password found")
