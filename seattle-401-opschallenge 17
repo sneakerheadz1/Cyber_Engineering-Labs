@@ -34,7 +34,7 @@ Choose your mode:
 
 """)
 
-If(usr_choice == 3):
+if(usr_choice == 3):
     Connect()
 else:
     exit()
