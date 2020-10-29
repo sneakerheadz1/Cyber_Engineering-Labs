@@ -23,7 +23,7 @@ password = "123456"
 
 
 # menu 
-Def usr_menu():
+def usr_menu():
 usr_choice = ("""
 
 Choose your mode:
