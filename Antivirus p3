@@ -14,7 +14,7 @@ import requests
 
 # Set your environment variable
 
-#apikey = os.getenv('35bdf6a10edd784d7743e04648f34dd765a6810c0e681f2bd65d71ec16f949bd') 
+#apikey = os.getenv('') 
 hash =  hashlib.sha256(('cyberfun'(256)).encode('utf-8')).hexdigest() # Set your hash here. 
 
 
@@ -22,7 +22,7 @@ hash =  hashlib.sha256(('cyberfun'(256)).encode('utf-8')).hexdigest() # Set your
 
 url = 'https://www.virustotal.com/vtapi/v2/file/scan/upload_url'
 
-params = {'apikey':'35bdf6a10edd784d7743e04648f34dd765a6810c0e681f2bd65d71ec16f949bd'}
+params = {'apikey':''}
 
 response = requests.get(url, params=params)
 
