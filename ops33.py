@@ -1,0 +1,44 @@
+#!/usr/bin/env python3
+
+
+# Script Name               ops challange-401 3
+# Author                    Dom Moore
+# Date                      11/18/20
+# Description of purpose    Antivirus p
+
+
+# Import Libraries
+import hashlib
+import os
+import requests
+
+# Set your environment variable
+
+#apikey = os.getenv('35bdf6a10edd784d7743e04648f34dd765a6810c0e681f2bd65d71ec16f949bd') 
+hash =  hashlib.sha256(('cyberfun'(256)).encode('utf-8')).hexdigest() # Set your hash here. 
+
+
+# File Scan
+
+url = 'https://www.virustotal.com/vtapi/v2/file/scan/upload_url'
+
+params = {'apikey':'35bdf6a10edd784d7743e04648f34dd765a6810c0e681f2bd65d71ec16f949bd'}
+
+response = requests.get(url, params=params)
+
+print(response.json())
+upload_url_json = response.json()
+upload_url = upload_url_json['upload_url']
+
+file_to_scan="passwd.txt"
+files = {'file': (file_to_scan, open(file_to_scan, 'rb'))}
+response = requests.post(upload_url, files=files)
+print (response.text)
+
+# This concatenates everything into a working shell statement that gets passed into virustotal-search.py
+query = 'python3 virustotal-search.py -k ' + params + ' -m ' + hash
+
+os.system(query)
+
+
+  
